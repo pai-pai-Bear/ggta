@@ -17,68 +17,26 @@
       </template>
       <template v-slot:nav>  
         <div class="nav">
-          <ul v-show="isRotate" class="pp">
-            <li  class="action">
+          <ul v-show="isRotate" class="pp" v-if="homeData.kingKongModule">
+            <li  class="action" >
               <span >推荐</span>
             </li>
-            <li>
-              <span>居家生活</span>
+            <li v-for="(item, index) in homeData.kingKongModule.kingKongList" :key="index">
+              <span>{{item.text}}</span>
             </li>
-            <li>
-              <span>服饰箱包</span>
-            </li>
-            <li>
-              <span>美酒饮料</span>
-            </li>
-            <li>
-              <span>个护清洁</span>
-            </li>
-            <li>
-              <span>母婴亲子</span>
-            </li>
-            <li>
-              <span>运动旅行</span>
-            </li>
-            <li>
-              <span>数码家电</span>
-            </li>
-            <li>
-              <span>全球特色</span>
-            </li>
+            
           </ul>
           <div class="navLeft">
-            <ul v-if="!isRotate" class="dd">
-              <li style="width:87px" class="action">
+            <ul  class="dd">
+              <li style="width:55px" class="action">
                 <span >推荐</span>
               </li>
-              <li>
-                <span>居家生活</span>
-              </li>
-              <li>
-                <span>服饰箱包</span>
-              </li>
-              <li>
-                <span>美酒饮料</span>
-              </li>
-              <li>
-                <span>个护清洁</span>
-              </li>
-              <li>
-                <span>母婴亲子</span>
-              </li>
-              <li>
-                <span>运动旅行</span>
-              </li>
-              <li>
-                <span>数码家电</span>
-              </li>
-              <li>
-                <span>全球特色</span>
+              <li v-for="(item, index) in homeData.kingKongModule.kingKongList" :key="index">
+                <span>{{item.text}}</span>
               </li>
             </ul>
-            <div class="normal" v-else>
+            <div class="normal" v-show="isRotate">
               <p>全部频道</p>
-              
             </div>
           </div>
           <div class="navRight">
@@ -86,16 +44,18 @@
               <transition name="scale" >
                 <div class="toggleWrap" :class="{rotate: isRotate}" @click="icRotate(isRotate)">
                   <i class="iconfont iconkm-under" ></i>
-              </div>
-            </transition>
+                </div>
+              </transition>
           </div>
         </div>
       </template>
     </Header>
     <div class="mask" v-show="isRotate"></div>
+
     <div>
       <swiper class="ho"/>
     </div>  
+
     <ul class="promise">
       <li style="float:left">
         <i class="iconfont iconziying"></i>
@@ -110,6 +70,7 @@
         <span>48小时快速退款</span>
       </li>
     </ul>
+
     <div  class="category-list">
       <ul class="category-thing">
         <li>
@@ -206,7 +167,7 @@
         <div class="srdz-swiper">
           <div class="sr-swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide">
+              <div class="swiper-slide" v-for="(item, index) in homeData.personalShop" :key="index">
                 <div class="swiper-item">
                   <div>
                     <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
@@ -235,35 +196,7 @@
                   </div>
                 </div>
               </div>
-              <div class="swiper-slide">
-                <a class="swiper-item">
-                  <div>
-                    <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
-                  </div>
-                  <div class="swiper-name">
-                    <span>泰国制造 天然乳胶枕 护...</span>
-                    <span class="price">¥179</span>
-                  </div>
-                </a>
-                <a class="swiper-item">
-                  <div>
-                    <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
-                  </div>
-                  <div class="swiper-name">
-                    <span>泰国制造 天然乳胶枕 护...</span>
-                    <span class="price">¥179</span>
-                  </div>
-                </a>
-                <a class="swiper-item">
-                  <div>
-                    <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
-                  </div>
-                  <div class="swiper-name">
-                    <span>泰国制造 天然乳胶枕 护...</span>
-                    <span class="price">¥179</span>
-                  </div>
-                </a>
-              </div>
+              
             </div>
             <div class="sr-swiper-pagination"></div>
           </div>
@@ -535,6 +468,7 @@
         </ul>
       </div>
     </div>
+
     <div class="footer">
       <div class="btn">
         <span style="margin-right:50px">下载APP</span>
@@ -549,28 +483,64 @@
 </template>
 
 <script>
+import {mapState} from 'vuex'
+
 import Header from '../../components/Header/Header.vue'
 import swiper from '../../components/Header/swiper/swiper.vue'
+import BScroll from '@better-scroll/core'
 
 import Swiper from 'swiper'
 import 'swiper/css/swiper.min.css'
 export default {
   data() {
     return {
-      isRotate: false
+      isRotate: false,
+      bs: null,
+      navList: []
     }
   },
+
+  computed: {
+    ...mapState({
+      homeData: state => state.homeData
+    }),
+    function () {
+      this.navList = this.homeData.personalShop.length % 3
+      console.log(this.navList)
+    }
+  },
+
+  watch:{
+    
+    
+  },
+
   mounted() {
+
     new Swiper('.sr-swiper-container', {
       pagination: {
         el: '.sr-swiper-pagination'
       }
     })
+
+    this.creatBS()
   },
 
   methods: {
     icRotate(isRotate) {
       this.isRotate = !isRotate
+      if(this.bs) {
+        this.bs.refresh()
+      } else {
+        this.creatBS() 
+      }
+    },
+
+    creatBS() {
+      this.bs = new BScroll('.navLeft', {
+        click: true,
+        scrollX: true,
+      })
     }
   },
 
@@ -623,22 +593,32 @@ export default {
   
 
   .navLeft
+    width 600px
     .normal
-      padding-left 30px   
+      width 100%
+      height 65px
+      position absolute
+      left 0
+      background #fff
       color #333
+      z-index 10
       p
         letter-spacing 4px
         font-size 26px
   .navRight
+    position absolute
+    right 0
     display flex
     width 160px
     .liner
-      width 60px
-      height 100%
-      background-image linear-gradient(to right,rgba(255,255,255,0) 0,#fff 100%)
+      width 100%
+      height 60px
+      background-image linear-gradient(to right,rgba(255,255,255,0) 0,#fff 40%)
     .toggleWrap
+      position absolute
+      right 0
+      height 60px
       width 100px
-      height 100%
       text-align center
       transition transform .3s
       &.rotate

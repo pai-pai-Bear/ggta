@@ -70,22 +70,25 @@ export default {
       display flex
       height 60px
       .navLeft
+        position relative
+        left 0
         height 100%
-        width 600px
-        overflow hidden
+        // width 600px
+        margin 0 30px
         .dd
+          position absolute
+          left 0
           display flex
-          margin 0 30px
           height 100%
           font-size 26px
           li
-            width 143px
+            display inline-block
             padding 0 20px
             text-align center
-            // line-height 60px
+            flex 1
             color #333
-            letter-spacing 4px
             font-weight bold
+            
             &.action
               color #b4282d
               border-bottom 6px solid #b4282d

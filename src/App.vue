@@ -10,6 +10,12 @@
 import Footer from './components/Footer/Footer.vue'
 export default {
   name: 'app',
+
+  mounted() {
+    this.$store.dispatch('getHomeData')
+    this.$store.dispatch('getCategory')
+  },
+
   components: {
     Footer,
   }

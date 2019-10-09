@@ -5,10 +5,10 @@
         <i class="iconfont iconshouye" @click="$router.replace('/home')"></i>
       </template>
       <template v-slot:main>
-        <img src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
+        <img class="p-img" src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
       </template>
       <template v-slot:right>
-        <div>
+        <div style="line-height:67px">
           <i class="iconfont iconsousuo" style="margin-right:25px"></i>
           <i class="iconfont icongouwuche"></i>
         </div>
@@ -44,7 +44,6 @@
         </div>
         <span style="color:#333" @click="$router.back()">其他登录方式 ></span>
       </div>
-      
     </div>
   </section>  
 </template>
@@ -64,9 +63,12 @@ export default {
   height 100px
   justify-content space-between
   background:#fafafa
-  img 
-    margin-left 50px
-    height 70%
+  .p-img 
+      position absolute
+      left 0
+      right 0
+      margin auto 
+      height 50%
   .iconfont
     font-size 46px
   p
@@ -85,7 +87,6 @@ export default {
 .p-wrap
   padding-top 48px
   height 700px
-  background #ffffff
   .p-container
     display flex
     flex-direction column

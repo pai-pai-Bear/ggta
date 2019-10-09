@@ -5,7 +5,7 @@
         <i class="iconfont iconshouye" @click="$router.replace('/home')"></i>
       </template>
       <template v-slot:main>
-        <img src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
+        <img class="p-img" src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
       </template>
       <template v-slot:right>
         <div>
@@ -17,7 +17,7 @@
     </Header>
     <div class="l-bg">
       <div class="bg-img">
-        <img src="//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png" data-reactid=".0.1.0.1.0.0">
+        <img  src="//yanxuan.nosdn.127.net/bd139d2c42205f749cd4ab78fa3d6c60.png" data-reactid=".0.1.0.1.0.0">
       </div>
       <div class="btns">
         <button class="phone" @click="$router.push('/phone')">手机号快速登陆</button>
@@ -52,6 +52,7 @@ export default {
 
 <style lang="stylus">
 .body
+  height 100vh
   background #f2f5f4
 #header
   .search
@@ -59,9 +60,12 @@ export default {
     height 100px
     justify-content space-between
     background:#fafafa
-    img 
-      margin-left 50px
-      height 70%
+    .p-img 
+      position absolute
+      left 0
+      right 0
+      margin auto 
+      height 50%
     .iconfont
       font-size 46px
     p
