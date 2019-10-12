@@ -14,4 +14,7 @@ Mock.mock('/category', {
   data: category
 })
 
-Mock.mock('/knewThings', {code: 0, data: categoryList})
+Mock.mock('/knewThings', {
+  code: 0,
+  data: categoryList
+})

@@ -8,113 +8,77 @@
         </span>
       </div>
     </header>
-    <div class="cate-list">
-      <ul>
-        <li class="one active">推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
-        <li>推荐专区</li>
+    <div class="cate-list" ref="ll">
+      <ul ref="YList">
+        <li @click="isRed(index)" :class="{active: index===0}" v-for="(item, index) in category.categoryL1List" :key="index">
+          {{item.name}}
+        </li>
       </ul>
     </div>
-    <div class="cate-showlist">
-      <div class="swiper-cotainer">
-        <div class="swiper-wrapper">
-          <div class="swiper-slide">
-            <img src="https://yanxuan.nosdn.127.net/db32d24cdd1d133d1e02fe47f300b58d.jpg?imageView&amp;quality=75&amp;thumbnail=0x196">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://yanxuan.nosdn.127.net/db32d24cdd1d133d1e02fe47f300b58d.jpg?imageView&amp;quality=75&amp;thumbnail=0x196">
-          </div>
-          <div class="swiper-slide">
-            <img src="https://yanxuan.nosdn.127.net/db32d24cdd1d133d1e02fe47f300b58d.jpg?imageView&amp;quality=75&amp;thumbnail=0x196">
-          </div>
-        </div>
-        <div class="pagination"></div>
+    <div ref="rr" style="height:1140px">
+      <div class="cate-showlist">
+        <img :src="category.categoryL1List[index].bannerUrl">
+          <ul ref="things">
+            <li v-for="(li,n) in category.categoryL1List[index].subCateList" :key="n">
+              <div class="i-wrap">
+                <img :src="li.bannerUrl">
+              </div>
+              <div class="t-wrap">
+                {{li.name}}
+              </div>
+            </li>
+            </li>
+          </ul>
       </div>
-      <ul ref="things">
-        <li >
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-        <li >
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-        <li style="margin: 0">
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-        <li>
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-        <li>
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-        <li style="margin: 0">
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-        <li>
-          <div class="i-wrap">
-            <img src="https://yanxuan.nosdn.127.net/71a5f1a0299e278f8193c193d8b7d1e4.png?imageView&amp;quality=85&amp;thumbnail=144x144" class="cateImg" data-reactid=".0.1.1.0.0.1:$categroup0.1.$subCate_0.0.0.0">
-          </div>
-          <div class="t-wrap">
-            明星商品
-          </div>
-        </li>
-      </ul>
     </div>
   </div>
 </template>
 
 <script>
-import Swiper from 'swiper'
-import 'swiper/css/swiper.min.css'
+import BS from '@better-scroll/core'
 
+import {mapState} from 'vuex'
 export default {
-  mounted() {
-    new Swiper('.swiper-cotainer', {
-      loop: true,
-      pagination: {
-        el: '.pagination'
-      }
+  data() {
+    return {
+      index: 0,
+      categoryList:[]
+    }
+  },
+  
+  computed: {
+    ...mapState({
+      category: state => state.category
     })
   },
 
+  watch: {
+    categoryList() {
+      this.$bus.creatBs(this.$refs.rr,false, true)
+      this.categoryList = this.category.categoryL1List[this.index].subCateList
+
+    }
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      this.$bus.creatBs(this.$refs.ll,false, true)
+      this.categoryList = this.category.categoryL1List[this.index].subCateList
+    })
+  },
+  methods: {
+    isRed(num) {
+      // const lis = Array.from(this.$refs.YList.children)
+      const lis = [...this.$refs.YList.children]
+      lis.forEach((item,index) => {
+        item.classList.remove('active')
+        if(index === num ) {
+          item.classList.add('active')
+          this.index = num
+        }
+      })
+    },
+  }
 }
 </script>
 
@@ -129,8 +93,10 @@ export default {
     line-height 56px
     width 100%
     padding 16px 30px
+    background #fff
     border-bottom 1px solid #ededed
     text-align center
+    z-index 11
     .title
       height 56px
       background #ededed
@@ -155,7 +121,8 @@ export default {
         height 50px
         line-height 50px
         margin-top 40px
-        &.one
+        border-left 4px solid transparent
+        &:nth-of-type(1)
           margin-top 0
         &.active
           color #b4282d
@@ -165,21 +132,10 @@ export default {
     width 528px
     height 1097px
     padding 30px 30px 21px
-    .swiper-cotainer
-      position relative
-      top 0
-      left 0
+    img
       margin-bottom 32px
       width 528px
       height 192px
-      overflow hidden
-      .swiper-wrapper
-        width 100%
-        .swiper-slide 
-          height 192px
-          img
-            width 100%
-            height 192px
       .pagination
         position absolute
         bottom 20px
@@ -196,6 +152,18 @@ export default {
       li
         text-align center
         margin-right 34px
+        &:nth-of-type(3n)
+          margin-right 0
+        .i-wrap
+          overflow hidden
+          border-radius 50%
+          height 144px
+          width 144px
+          margin-bottom 5px
+          img 
+            width 100%
+            height 100%
         .t-wrap
+          width 144px
           font-size 24px
 </style>

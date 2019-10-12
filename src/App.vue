@@ -14,6 +14,9 @@ export default {
   mounted() {
     this.$store.dispatch('getHomeData')
     this.$store.dispatch('getCategory')
+    this.$store.dispatch('getCategoryList')
+    this.$store.dispatch('getThings')
+    this.$store.dispatch('getHot')
   },
 
   components: {

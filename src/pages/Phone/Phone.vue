@@ -22,13 +22,16 @@
         <div class="p-main">
           <div class="p-input">
             <div class="user">
-              <input type="text" placeholder="请输入手机号">
+              <input type="text" placeholder="请输入手机号" v-model="phone" @change="truePhone">
             </div>          
             <div class="pw">
               <input type="password" placeholder="请输入短信验证码"/>
               <button class="code">获取验证码</button>
             </div>
             
+          </div>
+          <div class="err">
+            <div v-show="error">手机号格式错误</div>
           </div>
           <p>
             <span>遇到问题？</span>
@@ -51,9 +54,37 @@
 <script>
 import Header from '../../components/Header/Header'
 export default {
+  data () {
+    return {
+      phone: '',
+      code: '',
+      error: false
+    }
+  },
+
+  methods: {
+    truePhone() {
+      if(!this.phone) {
+        this.error = false
+        return
+      }
+      const phones = /^1[3-9]\d{9}$/
+      if(!phones.test(this.phone)) {
+        this.error = true
+      } else {
+        this.error = false
+      }
+      console.log(phones.test(this.phone))
+
+    }
+  },
+
+
   components: {
     Header,
-  }
+  },
+
+
 }
 </script>
 
@@ -114,12 +145,14 @@ export default {
         font-size 28px
       .p-input
         width 100%
-        height 240px
+        height 220px
         font-size 30px
         input 
           height 88px
           width 100%
           border-bottom 2px solid #ddd
+          outline none
+        
         .pw
           position relative
           top 40px
@@ -135,6 +168,10 @@ export default {
           background #fff
           color #333
           font-size 28px
+      .err
+        width 100%
+        color red
+        font-size 26px
       .in
         .in-p
           height 94px

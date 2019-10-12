@@ -1,30 +1,30 @@
 <template>
     <footer id="footer">
-      <div class="active" >
+      <div :class="{active: this.$route.path !== '/category' && $route.path !== '/knewThings' &&  $route.path !== '/cart' && $route.path !== '/personal'}" >
         <span class="item" @click="goto('/home')">
           <i class="iconfont iconshouye"></i>
           <span>首页</span>
         </span>
       </div>
-      <div>
+      <div :class="{active:$route.path === '/category'}">
         <span class="item" @click="goto('/category')">
           <i class="iconfont iconchouti"></i>
           <span>分类</span>
         </span>
       </div>
-      <div>
+      <div :class="{active:$route.path === '/knewThings'}">
         <span class="item" @click="goto('/knewThings')">
           <i class="iconfont iconshitu"></i>
           <span>识物</span>
         </span>
       </div>
-      <div>
+      <div :class="{active:$route.path === '/cart'}">
         <span class="item" @click="goto('/cart')">
           <i class="iconfont icongouwuche"></i>
           <span>购物车</span>
         </span>
       </div>
-      <div>
+      <div :class="{active:$route.path === '/personal'}">
         <span class="item" @click="goto('/personal')">
           <i class="iconfont icongeren"></i>
           <span>个人</span>
@@ -35,6 +35,19 @@
 
 <script>
 export default {
+  data(){
+    return {
+      path: '/',
+      show: true
+    }
+  },
+  computed: {
+    isactive () {
+      this.path = this.$route.path
+      console.log(this.path)
+    }
+  },
+
   methods: {
     goto(path){
       if(this.$route.path !== path){
@@ -42,8 +55,13 @@ export default {
       } else {
         window.location.reload()
       }
-    }
-  } 
+    },
+
+  } ,
+
+  watch: {
+    
+  }
 }
 </script>
 

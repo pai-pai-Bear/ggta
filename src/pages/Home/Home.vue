@@ -7,7 +7,7 @@
         </a>
       </template>
       <template v-slot:main>
-        <div class="jumpSearch">
+        <div class="jumpSearch" @click="$router.push('/search')">
           <i class="iconfont iconsousuo"></i>
           <span>搜索商品，共23072款好物</span>
         </div>
@@ -167,36 +167,17 @@
         <div class="srdz-swiper">
           <div class="sr-swiper-container">
             <div class="swiper-wrapper">
-              <div class="swiper-slide" v-for="(item, index) in homeData.personalShop" :key="index">
-                <div class="swiper-item">
+              <div class="swiper-slide"  v-for="(item, index) in navList" :key="index">
+                <div class="swiper-item" v-for="(i,index) in item" :key="index">
                   <div>
-                    <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
+                    <img :src="i.primaryPicUrl"/>
                   </div>
                   <div class="swiper-name">
-                    <span>泰国制造 天然乳胶枕 护...</span>
-                    <span class="price">¥179</span>
-                  </div>
-                </div>
-                <div class="swiper-item">
-                  <div>
-                    <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
-                  </div>
-                  <div class="swiper-name">
-                    <span>泰国制造 天然乳胶枕 护...</span>
-                    <span class="price">¥179</span>
-                  </div>
-                </div>
-                <div class="swiper-item">
-                  <div>
-                    <img src="https://yanxuan-item.nosdn.127.net/bbd83d44d6d8fc61031256143ad37c93.png?imageView&amp;quality=65&amp;thumbnail=330x330" data-reactid=".0.5.1.1.0.0.$/=10.0.$0.0.0.0">
-                  </div>
-                  <div class="swiper-name">
-                    <span>泰国制造 天然乳胶枕 护...</span>
+                    <span class="item-name">{{i.name}}</span>
                     <span class="price">¥179</span>
                   </div>
                 </div>
               </div>
-              
             </div>
             <div class="sr-swiper-pagination"></div>
           </div>
@@ -484,7 +465,7 @@
 
 <script>
 import {mapState} from 'vuex'
-
+import {chunk} from 'lodash'
 import Header from '../../components/Header/Header.vue'
 import swiper from '../../components/Header/swiper/swiper.vue'
 import BScroll from '@better-scroll/core'
@@ -504,24 +485,27 @@ export default {
     ...mapState({
       homeData: state => state.homeData
     }),
-    function () {
-      this.navList = this.homeData.personalShop.length % 3
-      console.log(this.navList)
-    }
+
   },
 
   watch:{
-    
-    
+    navList () {
+      this.$nextTick(() => {
+        new Swiper('.sr-swiper-container', {
+          autoplay: true,
+          pagination: {
+            el: '.sr-swiper-pagination',
+          }
+        })
+      })
+    }
   },
 
   mounted() {
-
-    new Swiper('.sr-swiper-container', {
-      pagination: {
-        el: '.sr-swiper-pagination'
-      }
-    })
+    this.$nextTick(() => {
+      this.navList = chunk([...this.homeData.personalShop], 3)
+    }) 
+    
 
     this.creatBS()
   },
@@ -590,12 +574,13 @@ export default {
       background #fafafa
       &.action
         border 1px solid #b4282d
+        color #b4282d
   
 
   .navLeft
     width 600px
     .normal
-      width 100%
+      width 640px
       height 65px
       position absolute
       left 0
@@ -696,6 +681,7 @@ export default {
             font-size 32px
           .pb 
             height 36px
+            width 216px
             font-size 26px
             color #7f7f7f
             margin-bottom 20px
@@ -732,11 +718,18 @@ export default {
                 font-size 24px
                 box-sizing border-box
                 padding  5px 15px 0
+
                 span
                   font-weight bold
                   line-height 34px
                   &.price
                     color #b4282d
+                  &.item-name  
+                    display inline-block
+                    height 60px
+                    text-overflow ellipsis
+                    overflow hidden
+                    
               div
                 img
                   height 216px

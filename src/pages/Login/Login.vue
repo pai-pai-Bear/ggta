@@ -44,6 +44,8 @@
 <script>
 import Header from '../../components/Header/Header'
 export default {
+  
+
   components: {
     Header,
   }
@@ -51,6 +53,8 @@ export default {
 </script>
 
 <style lang="stylus">
+input 
+  outline none
 .body
   height 100vh
   background #f2f5f4

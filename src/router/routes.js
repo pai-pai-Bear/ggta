@@ -6,6 +6,7 @@ const Personal = () => import('../pages/Personal/Personal.vue')
 const Login = () => import('../pages/Login/Login.vue')
 const Phone = () => import('../pages/Phone/Phone.vue')
 const Email = () => import('../pages/Email/Email.vue')
+const Search = () => import('../pages/Search/Search.vue')
 
 
 
@@ -16,6 +17,10 @@ export default [
     meta: {
       showFoot: true
     }
+  },
+  {
+    path: '/search',
+    component: Search,
   },
   {
     path: '/cart',

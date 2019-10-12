@@ -8,7 +8,7 @@
         <img class="p-img" src="//yanxuan-static.nosdn.127.net/hxm/yanxuan-wap/p/20161201/style/img/icon-normal/indexLogo-a90bdaae6b.png" alt="">
       </template>
       <template v-slot:right>
-        <div >
+        <div class="e-r">
           <i class="iconfont iconsousuo" style="margin-right:25px"></i>
           <i class="iconfont icongouwuche"></i>
         </div>
@@ -22,11 +22,15 @@
         <div class="e-main">
           <div class="e-input">
             <div class="user">
-              <input type="text" placeholder="邮箱账号">
+              <input type="text" 
+              placeholder="邮箱账号"
+               v-model="email"
+               @change="pwd"/>
             </div>          
             <div class="pw">
-              <input type="password" placeholder="密码"/>
+              <input type="password" placeholder="密码"  />
             </div>
+            <div v-show="show" class="fal">邮箱格式不正确</div>
           </div>
           <p>
             <span>注册账号</span>
@@ -46,8 +50,30 @@
 <script>
 import Header from '../../components/Header/Header'
 export default {
+  data() {
+    return {
+      email:'',
+      show: false
+    }
+  },
+
   components: {
     Header,
+  },
+
+  methods: {
+    pwd() {
+      if(this.email === '') {
+        this.show = false
+        return
+      }
+      const reg = /^([a-z0-9A-Z_-])+([-_.][a-z0-9A-Z]+)*@([a-z0-9A-Z_-]+)+(.[a-z0-9A-Z]{2,5})$/
+        if(!reg.test(this.email)){
+          this.show = true
+        } else {
+          this.show = false
+        }
+    } 
   }
 }
 </script>
@@ -66,6 +92,8 @@ body
       right 0
       margin auto 
       height 50%
+  .e-r
+    
   .iconfont
     font-size 46px
   p
@@ -111,11 +139,17 @@ body
         font-size 28px
       .e-input
         width 100%
-        height 180px
         font-size 30px
+        .fal
+          height 30px
+          line-height 80px
+          color red
+          font-size 30pxpx
+
         input 
           height 88px
           width 100%
+          outline none
           border-bottom 2px solid #ddd
         .code
           position absolute
